@@ -1,0 +1,53 @@
+html{
+  background: #FBF9FE;
+  font-family: "microsoft yahei";
+}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+  margin:0;
+  padding:0;
+}
+table {
+  border-collapse:collapse;
+  border-spacing:0;
+}
+ol,ul {
+  list-style:none;
+}
+a{
+  text-decoration: none;
+  color:#777;
+}
+a:active{
+  color:#777;
+}
+a:focus{
+  outline: none;
+}
+img{
+  vertical-align: bottom;
+}
+img:focus{
+  outline: none;
+}
+
+.h-alert{
+  position: fixed;
+  z-index:2000;
+  display: none;
+  top:30%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  padding: 12px;
+  border-radius: 3px;
+  background: rgba(0,0,0,.8);
+  color:#fff;
+  font-size: 14px;
+  width:50%;
+}
+
+.flexBox {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
