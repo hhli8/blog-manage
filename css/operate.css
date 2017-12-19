@@ -29,3 +29,112 @@ header{
   padding: 10px 20px;
   border-bottom: 1px solid #ddd;
 }
+.submit-box .level{
+  display: inline-block;
+  position: relative;
+  vertical-align: bottom;
+}
+.submit-box .level input{
+  border:1px solid #ccc;
+  outline: none;
+  padding: 5px 12px;
+  width:150px;
+  box-sizing: border-box;
+}
+.submit-box .level ul{
+  position: absolute;
+  left:0;
+  top:100%;
+  border:1px solid #ddd;
+  border-top:none;
+  background: #fff;
+  width:100%;
+  box-sizing: border-box;
+  display: none;
+}
+.submit-box .level ul.active{
+  display: block;
+}
+.submit-box .level ul li{
+  font-size: 14px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+.submit-box .level ul li:hover{
+  background: #ccc;
+}
+
+.show-box{
+  padding: 10px 20px;
+}
+.show-box .show-edit{
+  display: none;
+}
+.show-box .show-edit.active{
+  display: block;
+}
+.show-box .show-edit p.title{
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.edit-box li{
+  margin-bottom: 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 15px;
+}
+.edit-box .param{
+  color:#333;
+  display: inline-block;
+  width:100px;
+}
+.edit-box input{
+  outline: none;
+  border:1px solid #ccc;
+  padding: 5px 12px;
+  vertical-align: middle;
+}
+.edit-box .chose-img{
+  padding-left: 30px;
+}
+.edit-box .chose-img span{
+  display: inline-block;
+  width:50px;
+}
+.edit-box .img-preview{
+  margin-top: 10px;
+  padding-left: 30px;
+}
+.edit-box .img-preview img{
+  height: 100px;
+  border:1px solid #ddd;
+}
+.edit-box textarea{
+  vertical-align: top;
+}
+
+.kind-2{
+  overflow: hidden;
+}
+.kind-2 table{
+  width:100%;
+  font-size: 13px;
+}
+.kind-2 table td{
+  border:1px solid #ccc;
+  padding: 6px 0;
+  text-align: center;
+}
+.kind-2 table td.a-title>div{
+  width:100px;
+  max-height: 30px;
+  overflow: hidden;
+}
+.kind-2 table td.a-site>div{
+  width:200px;
+  max-height: 30px;
+  overflow: hidden;
+}

@@ -12,47 +12,296 @@
 	    <button type="button" class="o-add">添加文章</button>
 	    <button type="button" class="o-see">查看分类</button>
 	  </div>
-	  <div class="section show-box"></div>
+	  
 	  <div class="section submit-box">
-	    <select name="" id="" class="level-1">
-	      <option value="技术站">技术站</option>
-	      <option value="技术站">生活圈</option>
-	      <option value="技术站"></option>
-	      <option value="技术站"></option>
-	    </select>
-	    <select name="" id="" class="level-1">
-        <option value="技术站"></option>
-        <option value="技术站"></option>
-        <option value="技术站"></option>
-        <option value="技术站"></option>
-      </select>
-      <select name="" id="" class="level-1">
-        <option value="技术站"></option>
-        <option value="技术站"></option>
-        <option value="技术站"></option>
-        <option value="技术站"></option>
-      </select>
+	    <div class="level-1 level">
+	      <input type="text" placeholder="请选择一级类目" readonly/>
+	      <ul></ul>
+	    </div>
+	    <ul class="level-2 level">
+	      <input type="text" placeholder="请选择二级类目" readonly/>
+        <ul></ul>
+	    </ul>
+	    <ul class="kind level">
+        <input type="text" placeholder="请选择显示方式" readonly/>
+        <ul>
+          <li data-id=1>外部链接</li>
+          <li data-id=2>内部编辑</li>
+        </ul>
+      </ul>
 	  </div>
 	  
+	  <div class="section show-box">
+      <div class="show-edit kind-1 active">
+        <p class="title">外部链接</p>
+        <ul class="edit-box">
+          <li>
+            <span class="param">来源:</span><!--淘宝前端团队(FED)-->
+            <input type="text" class="resource-from"/>
+          </li>
+          <li>
+            <span class="param">网址:</span>
+            <input type="text" class="resource-link"/>
+          </li>
+          <li>
+            <span class="param">标题:</span>
+            <input type="text" class="resource-title"/>
+          </li>
+          <li>
+            <span class="param">展示图片:</span>
+            <div class="chose-img">
+              <div style="margin: 10px 0;"><span>选择:</span><input type="file" class="upload-img"/></div>
+              <span>输入:</span><input type="text" class="previewed-site"/> <button type="button">确定</button>
+            </div>
+            <div class="img-preview">
+              <img src="imgs/demo.jpg" alt="" />
+            </div>
+          </li>
+          <li>
+            <span class="param">展示文字:</span>
+            <textarea type="text" class="resource-text"/></textarea>
+          </li>
+        </ul>
+        <div>
+          <button type="button" id='kind1-review'>预览</button>
+          <button type="button" id='kind1-submit'>提交</button>
+        </div>
+      </div>
+      <div class="show-edit kind-2 ">
+        <div style="overflow: auto;">
+        <table>
+          <thead>
+            <tr>
+              <td class="a-id">id</td>
+              <td class="a-title"><div>标题</div></td>
+              <td class="a-site"><div>网址</div></td>
+              <td class="a-level1">level1</td>
+              <td class="a-level2">level2</td>
+              <td class="a-kind">kind</td>
+              <td class="a-operate">操作</td>
+            </tr>
+          </thead>
+          <tbody>
+            
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+	  
+	  <div class="modal">
+	    <canvas id="canvas" width="" height=""></canvas>
+	  </div>
 	  <script src="js/jquery1.11.1.min.js"></script>
 	  <script src="js/common.js"></script>
 	  <script>
 	    var params=[
   	    {
-  	      name:'技术站',id:122,children:[
-  	        {name:'Vue',id:122},
-  	        {name:'Node.js',id:122}
+  	      name:'技术站',id:101,children:[
+  	        {name:'Vue',id:1001},
+  	        {name:'Node.js',id:1002},
+  	        {name:'H5',id:1003},
+  	        {name:'mongodb',id:1004}
   	      ]
   	    },
   	    {
-  	      name:'技术站',id:122,children:[
-            {name:'Vue',id:122},
-            {name:'Node.js',id:122}
+  	      name:'生活路',id:102,children:[
+            {name:'Vue2',id:1021},
+            {name:'Node.js2',id:1022}
           ]
   	    }
 	    ];
 	    $(function(){
+        var html1='',html2='',html3='';
+        for(var i=0,l=params.length;i<l;i++){
+          html1+='<li data-id='+params[i].id+'>'+params[i].name+'</li>';
+        }
+        $('.level-1 ul').html(html1);
+      });
+      $('.level input').click(function(){
+        $(this).next().toggleClass('active');
+      });
+      $(document).on('click','.level ul li',function(){
+        $(this).parent().removeClass('active');
+        var $input=$(this).parent().prev();
+        $input.attr('data-id',$(this).attr('data-id'));
+        $input.val($(this).text());
+        if($input.parent().hasClass('level-1')){
+          var index=$(this).index();
+          var second=params[index].children;
+          var html='';
+          for(var i=0,l=second.length;i<l;i++){
+            html+='<li data-id='+second[i].id+'>'+second[i].name+'</li>';
+          }
+          $('.level-2 ul').html(html);
+        }
+        if($input.parent().hasClass('kind')){
+          
+        }
+      });
+      
+      $('#kind1-review').click(function(){   
+        //$('.show-edit.kind-1 iframe').attr('src',$('.out-link input').val());
+      });
+      $('#kind1-submit').click(function(){   
+        var data={
+          level1:$('.level-1 input').attr('data-id'),
+          level2:$('.level-2 input').attr('data-id'),
+          kind:$('.kind input').attr('data-id'),
+          sfrom:$('.resource-from').val(),
+          swebsite:$('.resource-link').val(),
+          simg:{
+            img:'',
+            site:$('.previewed-site').val()
+          },
+          stext:$('.resource-text').val(),
+          title:$('.resource-title').val()
+        };
+        if(!$('.previewed-site').val()){
+          data.simg.img=$('.img-preview img').attr('src');
+        }
         
+        $.ajax({
+          url:'http://127.0.0.1:3000/article/add',
+          data:data,
+          type:'POST',
+          success:function(res){
+            console.log(res);
+            if(res.suc){
+              alert('加入成功');
+            }
+          },
+          error:function(){
+            
+          }
+        });
+      });
+      
+      // 压缩图片需要的一些元素和对象
+      var reader = new FileReader(), img = new Image();
+      // 缩放图片需要的canvas
+      //var canvas = document.createElement('canvas');
+      var canvas=document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var file=null;
+      // base64地址图片加载完毕后
+      img.onload = function () { console.log(2);
+          // 图片原始尺寸
+          var originWidth = this.width;
+          var originHeight = this.height;
+          // 最大尺寸限制
+          var maxWidth = 400, maxHeight = 400;
+          // 目标尺寸
+          var targetWidth = originWidth, targetHeight = originHeight;
+          // 图片尺寸超过400x400的限制
+          if (originWidth > maxWidth || originHeight > maxHeight) {
+              if (originWidth / originHeight > maxWidth / maxHeight) {
+                  // 更宽，按照宽度限定尺寸
+                  targetWidth = maxWidth;
+                  targetHeight = Math.round(maxWidth * (originHeight / originWidth));
+              } else {
+                  targetHeight = maxHeight;
+                  targetWidth = Math.round(maxHeight * (originWidth / originHeight));
+              }
+          }
+              
+          // canvas对图片进行缩放
+          canvas.width = targetWidth;
+          canvas.height = targetHeight;
+          // 清除画布
+          context.clearRect(0, 0, targetWidth, targetHeight);
+          // 图片压缩
+          context.drawImage(img, 0, 0, targetWidth, targetHeight);
+          // canvas转为blob并上传
+          canvas.toBlob(function (blob) {console.log(blob);
+//            // 图片ajax上传
+//            var xhr = new XMLHttpRequest();
+//            // 文件上传成功
+//            xhr.onreadystatechange = function() {
+//                if (xhr.status == 200) {
+//                    // xhr.responseText就是返回的数据
+//                }
+//            };
+//            // 开始上传
+//            xhr.open("POST", 'upload.php', true);
+//            xhr.send(blob);    
+          }, file.type || 'image/png');
+      };
+      
+      // 文件base64化，以便获知图片原始尺寸
+      reader.onload = function(e) { 
+        //console.log(e);
+        $('.img-preview img').attr('src',e.target.result);
+        img.src = e.target.result;
+      };
+      $('.upload-img').change(function(){
+        console.log(this.files);
+        file=this.files[0];
+        if (file.type.indexOf("image") == 0) {
+            reader.readAsDataURL(file);    
+        }
+      });
+      
+      $('.chose-img button').click(function(){
+        $('.img-preview img').attr('src',$('.previewed-site').val());
+      });
+      
+//    var img = "imgurl";//imgurl 就是你的图片路径  
+//
+//    function getBase64Image(img) {  
+//         var canvas = document.createElement("canvas");  
+//         canvas.width = img.width;  
+//         canvas.height = img.height;  
+//         var ctx = canvas.getContext("2d");  
+//         ctx.drawImage(img, 0, 0, img.width, img.height);  
+//         var ext = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase();  
+//         var dataURL = canvas.toDataURL("image/"+ext);  
+//         return dataURL;  
+//    }  
+      
+//    var image = new Image();  
+//    image.src = img;  
+//    image.onload = function(){  
+//      var base64 = getBase64Image(image);  
+//      console.log(base64);  
+//    }  
+      
+      //$('#operate-box .o-see').click(function(){ //查看数据并编辑-删除
+      $(document).on('click','#operate-box .o-see',function(){
+        var level1=$('.level-1 input').attr('data-id'),
+            level2=$('.level-2 input').attr('data-id'),
+            kind=$('.kind input').attr('data-id');
+        if(!level1 ){
+          alert('参数缺失');return;
+        }
+        $.ajax({
+          url:'http://127.0.0.1:3000/article/find',
+          data:{
+            level1:level1,level2:level2//,kind:kind
+          },
+          type:'GET',
+          success:function(res){
+            console.log(res);
+            if(res.suc){ 
+              var html='';
+              res=res.res;
+              for(var i=0,l=res.length;i<l;i++){
+                html+='<tr><td class="a-id">'+res[i].id+'</td>'+
+                  '<td class="a-title"><div>'+res[i].title+'</div></td>'+
+                  '<td class="a-site"><div>'+res[i].swebsite+'</div></td>'+
+                  '<td class="a-level1">'+res[i].level1+'</td>'+
+                  '<td class="a-level2">'+res[i].level2+'</td>'+
+                  '<td class="a-kind">'+res[i].kind+'</td>'+
+                  '<td class="a-operate"><button type="button">删除</button><button type="button">编辑</button></td>'+
+                  '</tr>';
+              }
+              $('.kind-2 table tbody').html(html);
+            }
+          },
+          error:function(er){
+            console.log(er);
+          }
+        });
       });
 	  </script>
 	</body>
